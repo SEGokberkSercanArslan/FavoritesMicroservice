@@ -1,6 +1,7 @@
 # Favorites Microservice
 
 ## Projenin Amacı
+Favorites Mikroservis uygulaması, cep telefonunuzdaki uygulamaların kullanım sürelerini kayıt altına alan sanal bir uygulamadan gelen verileri işleyip depolayan ve kullanıcının en çok kullandığı 4 uygulamayı gösteren bir mikroservistir. 
 
 ## Kullanılan Teknolojiler
 * Spring Web
