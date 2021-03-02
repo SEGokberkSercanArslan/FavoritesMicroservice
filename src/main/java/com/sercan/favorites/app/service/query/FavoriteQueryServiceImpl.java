@@ -41,4 +41,9 @@ public class FavoriteQueryServiceImpl implements FavoriteQueryService{
         return favoriteRepository.findAllByOrderByTotalDurationDesc();
     }
 
+    @Override
+    public Favorite findFavoriteByApplicationName(String applicationName) {
+        return favoriteRepository.findFavoriteByApplicationName(applicationName);
+    }
+
 }

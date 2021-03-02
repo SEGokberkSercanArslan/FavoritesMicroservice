@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite,Long> {
     Favorite findFavoriteById(Long id);
+    Favorite findFavoriteByApplicationName(String applicationName);
     List<Favorite> findAllByApplicationName(String app_name);
     List<Favorite> findAllByOrderByTotalDurationDesc();
 }

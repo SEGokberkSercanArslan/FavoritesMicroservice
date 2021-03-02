@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
@@ -20,15 +21,19 @@ import java.time.LocalDate;
 @ApiModel(value = "FavoriteHistoryDTO")
 public class FavoriteHistoryDTO implements BaseEntity<FavoriteHistory> {
 
+    @NotNull
     @ApiModelProperty(name = "favoriteId")
     private Long favoriteId;
 
+    @NotNull
     @ApiModelProperty(name = "applicationName")
     private String applicationName;
 
+    @NotNull
     @ApiModelProperty(name = "recordDate")
     private LocalDate recordDate;
 
+    @NotNull
     @ApiModelProperty(name = "totalDuration")
     private Integer totalDuration;
 

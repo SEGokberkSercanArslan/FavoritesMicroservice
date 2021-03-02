@@ -7,22 +7,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 /**
  * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
- * IsFavoriteDTO created on 1.03.2021, licencing LGPL
+ * FavoriteDurationLogDTO created on 2.03.2021, licencing LGPL
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "IsFavoriteDTO", description = "")
-public class HasFavoriteDTO {
+@ApiModel(value = "FavoriteDurationLogDTO")
+public class FavoriteDurationLogDTO {
 
     @NotNull
-    @ApiModelProperty(name = "applicationName")
+    @ApiModelProperty(value = "totalDuration")
+    private Integer totalDuration;
+
+    @NotNull
+    @ApiModelProperty(value = "applicationName")
     private String applicationName;
 
     @NotNull
-    @ApiModelProperty(name = "hasList")
-    private Boolean hasList;
+    @ApiModelProperty(value = "recordDate")
+    private LocalDate recordDate;
 }
