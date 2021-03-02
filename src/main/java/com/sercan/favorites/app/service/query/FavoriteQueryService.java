@@ -2,12 +2,12 @@ package com.sercan.favorites.app.service.query;
 
 import com.sercan.favorites.app.entity.Favorite;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface FavoriteQueryService {
     List<Favorite> findAllByApplicationName(String applicationName);
-    Favorite findFavoriteById(Long id);
     void saveEntity(Favorite entity);
-    List<Favorite> findAllByOrderByTotalDurationDesc();
+    List<Favorite> findAllByRecordDateOrderByTotalDurationDesc(LocalDate date);
     Favorite findFavoriteByApplicationName(String applicationName);
 }

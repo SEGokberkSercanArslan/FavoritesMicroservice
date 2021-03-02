@@ -2,10 +2,10 @@ package com.sercan.favorites.app.service.command;
 
 import com.sercan.favorites.app.base.response.BaseApiResponse;
 import com.sercan.favorites.app.dto.FavoriteDurationLogDTO;
-import com.sercan.favorites.app.entity.Favorite;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
+import com.sercan.favorites.app.models.response.FavoritesResponse;
 
-import java.util.List;
+import java.time.LocalDate;
 
 /**
  * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
@@ -14,7 +14,7 @@ import java.util.List;
 public interface FavoriteCommandService {
     BaseApiResponse createFavoriteApp(FavoriteCreationRequest request);
     Boolean hasFavoriteList(String applicationName);
-    List<Favorite> getFavorites();
+    FavoritesResponse getFavorites(LocalDate date);
     BaseApiResponse durationLog(FavoriteDurationLogDTO dto);
 
 }

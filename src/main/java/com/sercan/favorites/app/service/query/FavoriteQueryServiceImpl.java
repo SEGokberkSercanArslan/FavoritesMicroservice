@@ -5,6 +5,7 @@ import com.sercan.favorites.app.repositories.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -27,18 +28,13 @@ public class FavoriteQueryServiceImpl implements FavoriteQueryService{
     }
 
     @Override
-    public Favorite findFavoriteById(Long id) {
-        return favoriteRepository.findFavoriteById(id);
-    }
-
-    @Override
     public void saveEntity(Favorite entity) {
         favoriteRepository.save(entity);
     }
 
     @Override
-    public List<Favorite> findAllByOrderByTotalDurationDesc() {
-        return favoriteRepository.findAllByOrderByTotalDurationDesc();
+    public List<Favorite> findAllByRecordDateOrderByTotalDurationDesc(LocalDate date) {
+        return favoriteRepository.findAllByRecordDateOrderByTotalDurationDesc(date);
     }
 
     @Override

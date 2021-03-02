@@ -3,8 +3,9 @@ package com.sercan.favorites.app.controller;
 import com.sercan.favorites.app.base.response.BaseApiResponse;
 import com.sercan.favorites.app.dto.FavoriteDurationLogDTO;
 import com.sercan.favorites.app.dto.HasFavoriteDTO;
-import com.sercan.favorites.app.entity.Favorite;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
+import com.sercan.favorites.app.models.request.FavoritesInformationRequest;
+import com.sercan.favorites.app.models.response.FavoritesResponse;
 import com.sercan.favorites.app.models.response.HasFavoriteListResponse;
 import com.sercan.favorites.app.service.command.FavoriteCommandService;
 import io.swagger.annotations.Api;
@@ -13,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author : Gökberk Sercan Arslan
@@ -35,23 +34,23 @@ public class FavoriteUIApiController {
 
     @PostMapping(value = "/createFavoriteApp")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "", notes = "creates new favorite app entity", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @ApiOperation(value = "createFavoriteApp", notes = "creates new favorite app entity", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseApiResponse createFavoriteApp(@RequestBody FavoriteCreationRequest request) {
         return favoriteCommandService.createFavoriteApp(request);
     }
 
-    @GetMapping(value = "/getFavorites")
+    @PostMapping(value = "/getFavorites")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "", notes = "The api brigs first 4 favorite applications today", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @ApiOperation(value = "getFavorites", notes = "The api brigs first 4 favorite applications today", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Favorite> getFavorites() {
-        return favoriteCommandService.getFavorites();
+    public FavoritesResponse getFavorites(@RequestBody FavoritesInformationRequest request){
+        return favoriteCommandService.getFavorites(request.getRecordDate());
     }
 
     @GetMapping(value = "hasFavoriteList/{APP_NAME}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "", notes = "", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @ApiOperation(value = "hasFavoriteList", notes = "Returns check result if the application exists in favorites list", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HasFavoriteListResponse hasFavoriteList(@PathVariable String APP_NAME) {
         HasFavoriteDTO hasFavoriteDTO = new HasFavoriteDTO(APP_NAME,favoriteCommandService.hasFavoriteList(APP_NAME));
@@ -60,7 +59,7 @@ public class FavoriteUIApiController {
 
     @PutMapping(value = "durationLog")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "", notes = "", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @ApiOperation(value = "durationLog", notes = "Logs duration of total app usage", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseApiResponse durationLog(@RequestBody FavoriteDurationLogDTO logDTO){
         return favoriteCommandService.durationLog(logDTO);

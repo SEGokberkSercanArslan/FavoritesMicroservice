@@ -4,12 +4,12 @@ import com.sercan.favorites.app.entity.Favorite;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite,Long> {
-    Favorite findFavoriteById(Long id);
     Favorite findFavoriteByApplicationName(String applicationName);
     List<Favorite> findAllByApplicationName(String app_name);
-    List<Favorite> findAllByOrderByTotalDurationDesc();
+    List<Favorite> findAllByRecordDateOrderByTotalDurationDesc(LocalDate date);
 }

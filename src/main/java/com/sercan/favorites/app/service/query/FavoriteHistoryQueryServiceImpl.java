@@ -5,6 +5,9 @@ import com.sercan.favorites.app.repositories.FavoriteHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 /**
  * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
  * FavoriteHistoryQueryServiceImpl created on 1.03.2021, licencing LGPL
@@ -22,5 +25,10 @@ public class FavoriteHistoryQueryServiceImpl implements FavoriteHistoryQueryServ
     @Override
     public FavoriteHistory saveEntity(FavoriteHistory entity) {
         return favoriteHistoryRepository.save(entity);
+    }
+
+    @Override
+    public List<FavoriteHistory> findAllByRecordDateOrderByTotalDurationDesc(LocalDate date) {
+        return favoriteHistoryRepository.findAllByRecordDateOrderByTotalDurationDesc(date);
     }
 }
