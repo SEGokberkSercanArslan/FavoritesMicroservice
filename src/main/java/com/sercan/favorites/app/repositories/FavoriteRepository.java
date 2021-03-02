@@ -10,4 +10,5 @@ import java.util.List;
 public interface FavoriteRepository extends JpaRepository<Favorite,Long> {
     Favorite findFavoriteById(Long id);
     List<Favorite> findAllByApplicationName(String app_name);
+    List<Favorite> findAllByOrderByTotalDurationDesc();
 }

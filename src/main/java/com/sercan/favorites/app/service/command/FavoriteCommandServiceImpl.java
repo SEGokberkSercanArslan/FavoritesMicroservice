@@ -1,11 +1,15 @@
 package com.sercan.favorites.app.service.command;
 
 import com.sercan.favorites.app.base.response.BaseApiResponse;
+import com.sercan.favorites.app.entity.Favorite;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
 import com.sercan.favorites.app.service.query.FavoriteHistoryQueryService;
 import com.sercan.favorites.app.service.query.FavoriteQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
@@ -26,6 +30,11 @@ public class FavoriteCommandServiceImpl implements FavoriteCommandService{
     @Override
     public Boolean hasFavoriteList(String applicationName){
         return favoriteQueryService.findAllByApplicationName(applicationName).size() != 0;
+    }
+
+    @Override
+    public List<Favorite> getFavorites() {
+        return favoriteQueryService.findAllByOrderByTotalDurationDesc().subList(0,4);
     }
 
     @Override

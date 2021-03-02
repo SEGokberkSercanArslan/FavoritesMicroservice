@@ -2,6 +2,7 @@ package com.sercan.favorites.app.controller;
 
 import com.sercan.favorites.app.base.response.BaseApiResponse;
 import com.sercan.favorites.app.dto.HasFavoriteDTO;
+import com.sercan.favorites.app.entity.Favorite;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
 import com.sercan.favorites.app.models.response.HasFavoriteListResponse;
 import com.sercan.favorites.app.service.command.FavoriteCommandService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author : Gökberk Sercan Arslan
@@ -41,8 +44,8 @@ public class FavoriteUIApiController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "", notes = "The api brigs first 4 favorite applications today", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void getFavorites() {
-
+    public List<Favorite> getFavorites() {
+        return this.favoriteCommandService.getFavorites();
     }
 
     @GetMapping(value = "hasFavoriteList/{APP_NAME}")

@@ -36,4 +36,9 @@ public class FavoriteQueryServiceImpl implements FavoriteQueryService{
         favoriteRepository.save(entity);
     }
 
+    @Override
+    public List<Favorite> findAllByOrderByTotalDurationDesc() {
+        return favoriteRepository.findAllByOrderByTotalDurationDesc();
+    }
+
 }

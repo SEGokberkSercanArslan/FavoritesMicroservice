@@ -8,4 +8,5 @@ public interface FavoriteQueryService {
     List<Favorite> findAllByApplicationName(String applicationName);
     Favorite findFavoriteById(Long id);
     void saveEntity(Favorite entity);
+    List<Favorite> findAllByOrderByTotalDurationDesc();
 }
