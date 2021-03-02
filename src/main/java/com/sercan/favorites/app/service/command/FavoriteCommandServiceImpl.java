@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * FavoriteCommandServiceImpl created on 1.03.2021, licencing LGPL
  */
 @Service
-public class FavoriteCommandServiceImpl implements FavoriteCommandService{
+public class FavoriteCommandServiceImpl implements FavoriteCommandService {
 
     private final FavoriteQueryService favoriteQueryService;
     private final FavoriteHistoryQueryService favoriteHistoryQueryService;
@@ -34,19 +34,19 @@ public class FavoriteCommandServiceImpl implements FavoriteCommandService{
     }
 
     @Override
-    public Boolean hasFavoriteList(String applicationName){
+    public Boolean hasFavoriteList(String applicationName) {
         return favoriteQueryService.findAllByApplicationName(applicationName).size() != 0;
     }
 
     @Override
-    public FavoritesResponse getFavorites(LocalDate date){
+    public FavoritesResponse getFavorites(LocalDate date) {
         FavoritesResponse response = new FavoritesResponse();
         List<FavoriteDTO> favoriteDTOS = favoriteQueryService.findAllByRecordDateOrderByTotalDurationDesc(date).stream().map(Favorite::toDTO).collect(Collectors.toList());
-        if (favoriteDTOS.size() != 0){
+        if (favoriteDTOS.size() != 0) {
             response.setFavoriteDTOS(favoriteDTOS);
         } else {
             List<FavoriteHistoryDTO> favoriteHistoryDTOS = favoriteHistoryQueryService.findAllByRecordDateOrderByTotalDurationDesc(date).stream().map(FavoriteHistory::toDTO).collect(Collectors.toList());
-            if (favoriteHistoryDTOS.size() != 0){
+            if (favoriteHistoryDTOS.size() != 0) {
                 response.setFavoriteHistoryDTOS(favoriteHistoryDTOS);
             }
         }
@@ -56,31 +56,35 @@ public class FavoriteCommandServiceImpl implements FavoriteCommandService{
     @Override
     public BaseApiResponse durationLog(FavoriteDurationLogDTO dto) {
         Favorite entity = favoriteQueryService.findFavoriteByApplicationName(dto.getApplicationName());
-        if (!dto.getRecordDate().isAfter(entity.getRecordDate()) && !dto.getRecordDate().isBefore(entity.getRecordDate())){
+        if (!dto.getRecordDate().isAfter(entity.getRecordDate()) && !dto.getRecordDate().isBefore(entity.getRecordDate())) {
             entity.setTotalDuration(entity.getTotalDuration() + dto.getTotalDuration());
             favoriteQueryService.saveEntity(entity);
             return new BaseApiResponse(System.currentTimeMillis(), "Usage duration logged");
         } else {
-            FavoriteHistory favoriteHistory = new FavoriteHistory();
-            favoriteHistory.setFavoriteID(entity.getId());
-            favoriteHistory.setTotalDuration(entity.getTotalDuration());
-            favoriteHistory.setRecordDate(entity.getRecordDate());
-            favoriteHistory.setApplicationName(entity.getApplicationName());
-            favoriteHistoryQueryService.saveEntity(favoriteHistory);
-            entity.setTotalDuration(dto.getTotalDuration());
-            entity.setRecordDate(dto.getRecordDate());
-            favoriteQueryService.saveEntity(entity);
-            return new BaseApiResponse(System.currentTimeMillis(),"New record created due to date changes");
+            if (!(favoriteHistoryQueryService.findAllByRecordDateOrderByTotalDurationDesc(dto.getRecordDate()).size() > 0)) {
+                FavoriteHistory favoriteHistory = new FavoriteHistory();
+                favoriteHistory.setFavoriteID(entity.getId());
+                favoriteHistory.setTotalDuration(entity.getTotalDuration());
+                favoriteHistory.setRecordDate(entity.getRecordDate());
+                favoriteHistory.setApplicationName(entity.getApplicationName());
+                favoriteHistoryQueryService.saveEntity(favoriteHistory);
+                entity.setTotalDuration(dto.getTotalDuration());
+                entity.setRecordDate(dto.getRecordDate());
+                favoriteQueryService.saveEntity(entity);
+                return new BaseApiResponse(System.currentTimeMillis(), "New record created due to date changes");
+            } else {
+                return new BaseApiResponse(System.currentTimeMillis(), "Operation cannot be done due to day passed and record already exists in favorite history");
+            }
         }
     }
 
     @Override
     public BaseApiResponse createFavoriteApp(FavoriteCreationRequest request) {
-        if (!hasFavoriteList(request.getFavoriteDTO().getApplicationName())){
+        if (!hasFavoriteList(request.getFavoriteDTO().getApplicationName())) {
             favoriteQueryService.saveEntity(request.getFavoriteDTO().toEntity());
             return new BaseApiResponse(System.currentTimeMillis(), "Operation Done");
         } else {
-            return new BaseApiResponse(System.currentTimeMillis(),"Already Exists");
+            return new BaseApiResponse(System.currentTimeMillis(), "Already Exists");
         }
     }
 }
