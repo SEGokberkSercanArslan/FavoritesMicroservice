@@ -101,4 +101,5 @@ Uygulamanın kullancının son 24 saatte kullandığı en favori 4 uygulamasın�
 * Sanal telefon uygulaması ekranın ilk açılışında default olarak günün tarihini kullanarak **/getFavorites** api'si üzerinden en favori 4 uygulama verisini erişebilecektir.
 
 ## Complexity hakkındaki düşünceler
-
+Favorite tablosu kullanıcının o gün içerisinde kullandığı uygulamaların kaydını tutmaktadır bu sebeple gün içerisinde **n** adet uygulama kullanması durumunda tabloda da **n** adet kayıt tutulacağı anlamına gelmektedir. 
+Buradaki olumsuz durum ise herhangi bir gün sonu işi yazılmadığından dolayı ve tablonun sadece sanal uygulamadan gelen güncelle request'ine bağlı olarak güncellenmesi sebebi ile kullanılmayan eski kayıtların favorite tablosunda kalmaya devam edecek olmasıdır.
