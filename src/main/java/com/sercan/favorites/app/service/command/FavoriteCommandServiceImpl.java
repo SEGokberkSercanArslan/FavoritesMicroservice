@@ -3,13 +3,13 @@ package com.sercan.favorites.app.service.command;
 import com.sercan.favorites.app.base.response.BaseApiResponse;
 import com.sercan.favorites.app.dto.FavoriteDurationLogDTO;
 import com.sercan.favorites.app.entity.Favorite;
+import com.sercan.favorites.app.entity.FavoriteHistory;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
 import com.sercan.favorites.app.service.query.FavoriteHistoryQueryService;
 import com.sercan.favorites.app.service.query.FavoriteQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,17 +41,20 @@ public class FavoriteCommandServiceImpl implements FavoriteCommandService{
     @Override
     public BaseApiResponse durationLog(FavoriteDurationLogDTO dto) {
         Favorite entity = favoriteQueryService.findFavoriteByApplicationName(dto.getApplicationName());
-        if (!dto.getRecordDate().isAfter(entity.getRecordDate()) || !dto.getRecordDate().isBefore(entity.getRecordDate())){
+        if (!dto.getRecordDate().isAfter(entity.getRecordDate()) && !dto.getRecordDate().isBefore(entity.getRecordDate())){
             entity.setTotalDuration(entity.getTotalDuration() + dto.getTotalDuration());
             favoriteQueryService.saveEntity(entity);
             return new BaseApiResponse(System.currentTimeMillis(), "Usage duration logged");
         } else {
-            // TODO : Write Favorite to Favorite History Table
-            Favorite favorite = new Favorite();
-            favorite.setTotalDuration(dto.getTotalDuration());
-            favorite.setApplicationName(dto.getApplicationName());
-            favorite.setRecordDate(dto.getRecordDate());
-            favoriteQueryService.saveEntity(favorite);
+            FavoriteHistory favoriteHistory = new FavoriteHistory();
+            favoriteHistory.setFavoriteID(entity.getId());
+            favoriteHistory.setTotalDuration(entity.getTotalDuration());
+            favoriteHistory.setRecordDate(entity.getRecordDate());
+            favoriteHistory.setApplicationName(entity.getApplicationName());
+            favoriteHistoryQueryService.saveEntity(favoriteHistory);
+            entity.setTotalDuration(dto.getTotalDuration());
+            entity.setRecordDate(dto.getRecordDate());
+            favoriteQueryService.saveEntity(entity);
             return new BaseApiResponse(System.currentTimeMillis(),"New record created due to date changes");
         }
     }

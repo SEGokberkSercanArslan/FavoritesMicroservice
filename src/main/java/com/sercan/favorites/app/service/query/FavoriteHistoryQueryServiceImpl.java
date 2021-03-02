@@ -1,5 +1,6 @@
 package com.sercan.favorites.app.service.query;
 
+import com.sercan.favorites.app.entity.FavoriteHistory;
 import com.sercan.favorites.app.repositories.FavoriteHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,10 @@ public class FavoriteHistoryQueryServiceImpl implements FavoriteHistoryQueryServ
     @Autowired
     public FavoriteHistoryQueryServiceImpl(FavoriteHistoryRepository favoriteHistoryRepository) {
         this.favoriteHistoryRepository = favoriteHistoryRepository;
+    }
+
+    @Override
+    public FavoriteHistory saveEntity(FavoriteHistory entity) {
+        return favoriteHistoryRepository.save(entity);
     }
 }
