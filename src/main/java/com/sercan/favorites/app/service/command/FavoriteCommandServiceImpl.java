@@ -43,11 +43,19 @@ public class FavoriteCommandServiceImpl implements FavoriteCommandService {
         FavoritesResponse response = new FavoritesResponse();
         List<FavoriteDTO> favoriteDTOS = favoriteQueryService.findAllByRecordDateOrderByTotalDurationDesc(date).stream().map(Favorite::toDTO).collect(Collectors.toList());
         if (favoriteDTOS.size() != 0) {
-            response.setFavoriteDTOS(favoriteDTOS);
+            if (favoriteDTOS.size() < 4){
+                response.setFavoriteDTOS(favoriteDTOS);
+            } else {
+                response.setFavoriteDTOS(favoriteDTOS.subList(0,4));
+            }
         } else {
             List<FavoriteHistoryDTO> favoriteHistoryDTOS = favoriteHistoryQueryService.findAllByRecordDateOrderByTotalDurationDesc(date).stream().map(FavoriteHistory::toDTO).collect(Collectors.toList());
             if (favoriteHistoryDTOS.size() != 0) {
-                response.setFavoriteHistoryDTOS(favoriteHistoryDTOS);
+                if (favoriteHistoryDTOS.size() < 4){
+                    response.setFavoriteHistoryDTOS(favoriteHistoryDTOS);
+                } else {
+                    response.setFavoriteHistoryDTOS(favoriteHistoryDTOS.subList(0,4));
+                }
             }
         }
         return response;
