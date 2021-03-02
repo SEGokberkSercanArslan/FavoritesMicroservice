@@ -87,11 +87,18 @@ Uygulamanın kullancının son 24 saatte kullandığı en favori 4 uygulamasın�
 ### Gözardı Edilen Durumlar
 * Uygulamanın kullanımı esnasında zaman diliminin değişmeyeceği düşünülmüştür.
 * Kullanıcının cep telefonu saatini değiştiremeyeceği düşünülmüştür.
+* Kullanıcının gece yarısından önce uygulamaları kapattığı düşünülmüştür (Uygulamanın 23:00'da kullanılıp 00:30'da bırakılması durumunda 90 dakikalık kullanım süresi yeni güne yazılacaktır). 
 
 ### CASE : Kullanıcının uygulama kullanım sürelerinin kaydedilmesi
 * Kullanıcı bir uygulamaya girdiğinde kullanım süresi sayılmaya başlar, kullanmayı bitirdiğinde ise harcadığı süre dakika cinsinden kayıtlanmak amacıyla mikroservis'e gönderilir
-* Sanal aplikasyon uygulamaya ait daha önce bir kayıt olup olmadığını kontrol etmek amacıyla **hasFavoriteList/{APP_NAME}** servisini çağırır ve hali hazırda favori listesinde uygulamanın kayıdının olup olmadığını sorgular
-* Favori listesinde kayıt olmaması durumunda yeni kayıt oluşturulur.
+* Sanal aplikasyon uygulamaya ait daha önce bir kayıt olup olmadığını kontrol etmek amacıyla **/hasFavoriteList/{APP_NAME}** servisini çağırır ve hali hazırda favori listesinde uygulamanın kayıdının olup olmadığını sorgular
+* Favori listesinde kayıt olmaması durumunda **/createFavoriteApp** api'si kullanılarak yeni kayıt oluşturulur.
 
 ### CASE : Kullanıcının etkinliklerinin loglanması
-* Veri tabanında uygulamaya ait bir kayıt olması durumunda 
+* Veri tabanında uygulamaya ait bir kayıt olması durumunda kullanım süresi **/durationLog** servisi kullanılarak arttırılacaktır. Güncelleme esnasında yeni güne gelinmiş ise favorites tablosundaki kayıt history tablosuna atılacaktır ve favorites tablosundaki kayıt yeni gelen veri ile güncellenecektir.
+
+### CASE : Favori uygulamaların tarihe göre çekilmesi
+* Sanal telefon uygulaması ekranın ilk açılışında default olarak günün tarihini kullanarak **/getFavorites** api'si üzerinden en favori 4 uygulama verisini erişebilecektir.
+
+## Complexity hakkındaki düşünceler
+

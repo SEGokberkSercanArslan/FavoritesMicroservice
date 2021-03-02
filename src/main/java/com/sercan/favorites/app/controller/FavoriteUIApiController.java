@@ -48,7 +48,7 @@ public class FavoriteUIApiController {
         return favoriteCommandService.getFavorites(request.getRecordDate());
     }
 
-    @GetMapping(value = "hasFavoriteList/{APP_NAME}")
+    @GetMapping(value = "/hasFavoriteList/{APP_NAME}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "hasFavoriteList", notes = "Returns check result if the application exists in favorites list", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -57,7 +57,7 @@ public class FavoriteUIApiController {
         return new HasFavoriteListResponse(hasFavoriteDTO);
     }
 
-    @PutMapping(value = "durationLog")
+    @PutMapping(value = "/durationLog")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "durationLog", notes = "Logs duration of total app usage", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
