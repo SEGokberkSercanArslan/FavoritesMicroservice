@@ -81,3 +81,17 @@ spring.jpa.database=mysql
 
 ## Uygulama Akışı
 
+### Senaryo
+Uygulamanın kullancının son 24 saatte kullandığı en favori 4 uygulamasını liste halinde göstermesi gerekmetedir. Gün değişiminde liste yenilenir ve önceki güne ait olan veriler history tablosunda depolanır. Kullanıcı geçmiş günlerde hangi uygulamayı en çok kullandığını sorgulayabilecektir.
+
+### Gözardı Edilen Durumlar
+* Uygulamanın kullanımı esnasında zaman diliminin değişmeyeceği düşünülmüştür.
+* Kullanıcının cep telefonu saatini değiştiremeyeceği düşünülmüştür.
+
+### CASE : Kullanıcının uygulama kullanım sürelerinin kaydedilmesi
+* Kullanıcı bir uygulamaya girdiğinde kullanım süresi sayılmaya başlar, kullanmayı bitirdiğinde ise harcadığı süre dakika cinsinden kayıtlanmak amacıyla mikroservis'e gönderilir
+* Sanal aplikasyon uygulamaya ait daha önce bir kayıt olup olmadığını kontrol etmek amacıyla **hasFavoriteList/{APP_NAME}** servisini çağırır ve hali hazırda favori listesinde uygulamanın kayıdının olup olmadığını sorgular
+* Favori listesinde kayıt olmaması durumunda yeni kayıt oluşturulur.
+
+### CASE : Kullanıcının etkinliklerinin loglanması
+* Veri tabanında uygulamaya ait bir kayıt olması durumunda 
