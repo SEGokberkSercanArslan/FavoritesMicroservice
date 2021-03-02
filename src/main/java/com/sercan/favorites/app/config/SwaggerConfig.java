@@ -8,7 +8,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
+ * @author : Gökberk Sercan Arslan
  * SwaggerConfig created on 1.03.2021, licencing LGPL
  */
 @Configuration

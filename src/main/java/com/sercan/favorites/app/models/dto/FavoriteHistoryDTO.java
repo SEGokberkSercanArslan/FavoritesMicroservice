@@ -1,7 +1,7 @@
-package com.sercan.favorites.app.dto;
+package com.sercan.favorites.app.models.dto;
 
 import com.sercan.favorites.app.base.entity.BaseEntity;
-import com.sercan.favorites.app.entity.Favorite;
+import com.sercan.favorites.app.models.entity.FavoriteHistory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -12,14 +12,18 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
- * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
- * FavoriteDTO created on 1.03.2021, licencing LGPL
- */
+* @author : Gökberk Sercan Arslan
+* FavoriteHistoryDTO created on 1.03.2021, licencing LGPL
+*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "FavoriteDTO")
-public class FavoriteDTO implements BaseEntity<Favorite> {
+@ApiModel(value = "FavoriteHistoryDTO")
+public class FavoriteHistoryDTO implements BaseEntity<FavoriteHistory> {
+
+    @NotNull
+    @ApiModelProperty(name = "favoriteId")
+    private Long favoriteId;
 
     @NotNull
     @ApiModelProperty(name = "applicationName")
@@ -34,8 +38,9 @@ public class FavoriteDTO implements BaseEntity<Favorite> {
     private Integer totalDuration;
 
     @Override
-    public Favorite toEntity() {
-        Favorite entity = new Favorite();
+    public FavoriteHistory toEntity() {
+        FavoriteHistory entity = new FavoriteHistory();
+        entity.setFavoriteID(favoriteId);
         entity.setApplicationName(applicationName);
         entity.setRecordDate(recordDate);
         entity.setTotalDuration(totalDuration);

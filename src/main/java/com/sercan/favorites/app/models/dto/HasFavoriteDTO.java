@@ -1,4 +1,4 @@
-package com.sercan.favorites.app.dto;
+package com.sercan.favorites.app.models.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
+ * @author : Gökberk Sercan Arslan
  * IsFavoriteDTO created on 1.03.2021, licencing LGPL
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "IsFavoriteDTO", description = "")
+@ApiModel(value = "IsFavoriteDTO")
 public class HasFavoriteDTO {
 
     @NotNull

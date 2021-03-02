@@ -1,8 +1,8 @@
 package com.sercan.favorites.app.controller;
 
 import com.sercan.favorites.app.base.response.BaseApiResponse;
-import com.sercan.favorites.app.dto.FavoriteDurationLogDTO;
-import com.sercan.favorites.app.dto.HasFavoriteDTO;
+import com.sercan.favorites.app.models.dto.FavoriteDurationLogDTO;
+import com.sercan.favorites.app.models.dto.HasFavoriteDTO;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
 import com.sercan.favorites.app.models.request.FavoritesInformationRequest;
 import com.sercan.favorites.app.models.response.FavoritesResponse;

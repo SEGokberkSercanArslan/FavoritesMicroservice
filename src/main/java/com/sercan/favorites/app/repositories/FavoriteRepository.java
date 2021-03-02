@@ -1,6 +1,6 @@
 package com.sercan.favorites.app.repositories;
 
-import com.sercan.favorites.app.entity.Favorite;
+import com.sercan.favorites.app.models.entity.Favorite;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

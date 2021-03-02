@@ -1,6 +1,6 @@
 package com.sercan.favorites.app.service.query;
 
-import com.sercan.favorites.app.entity.FavoriteHistory;
+import com.sercan.favorites.app.models.entity.FavoriteHistory;
 
 import java.time.LocalDate;
 import java.util.List;

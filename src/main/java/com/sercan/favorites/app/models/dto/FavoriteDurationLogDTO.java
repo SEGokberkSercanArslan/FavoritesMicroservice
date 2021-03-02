@@ -1,4 +1,4 @@
-package com.sercan.favorites.app.dto;
+package com.sercan.favorites.app.models.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
- * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
+ * @author : Gökberk Sercan Arslan
  * FavoriteDurationLogDTO created on 2.03.2021, licencing LGPL
  */
 @Data

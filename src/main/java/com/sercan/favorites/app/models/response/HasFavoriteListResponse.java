@@ -1,6 +1,6 @@
 package com.sercan.favorites.app.models.response;
 
-import com.sercan.favorites.app.dto.HasFavoriteDTO;
+import com.sercan.favorites.app.models.dto.HasFavoriteDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
+ * @author : Gökberk Sercan Arslan
  * IsFavoriteListResponse created on 1.03.2021, licencing LGPL
  */
 @Data

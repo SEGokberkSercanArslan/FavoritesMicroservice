@@ -1,11 +1,11 @@
 package com.sercan.favorites.app.service.command;
 
 import com.sercan.favorites.app.base.response.BaseApiResponse;
-import com.sercan.favorites.app.dto.FavoriteDTO;
-import com.sercan.favorites.app.dto.FavoriteDurationLogDTO;
-import com.sercan.favorites.app.dto.FavoriteHistoryDTO;
-import com.sercan.favorites.app.entity.Favorite;
-import com.sercan.favorites.app.entity.FavoriteHistory;
+import com.sercan.favorites.app.models.dto.FavoriteDTO;
+import com.sercan.favorites.app.models.dto.FavoriteDurationLogDTO;
+import com.sercan.favorites.app.models.dto.FavoriteHistoryDTO;
+import com.sercan.favorites.app.models.entity.Favorite;
+import com.sercan.favorites.app.models.entity.FavoriteHistory;
 import com.sercan.favorites.app.models.request.FavoriteCreationRequest;
 import com.sercan.favorites.app.models.response.FavoritesResponse;
 import com.sercan.favorites.app.service.query.FavoriteHistoryQueryService;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author : Gökberk Sercan Arslan A.K.A GoldenArchitech
+ * @author : Gökberk Sercan Arslan
  * FavoriteCommandServiceImpl created on 1.03.2021, licencing LGPL
  */
 @Service
@@ -44,16 +44,13 @@ public class FavoriteCommandServiceImpl implements FavoriteCommandService{
         List<FavoriteDTO> favoriteDTOS = favoriteQueryService.findAllByRecordDateOrderByTotalDurationDesc(date).stream().map(Favorite::toDTO).collect(Collectors.toList());
         if (favoriteDTOS.size() != 0){
             response.setFavoriteDTOS(favoriteDTOS);
-            return response;
         } else {
             List<FavoriteHistoryDTO> favoriteHistoryDTOS = favoriteHistoryQueryService.findAllByRecordDateOrderByTotalDurationDesc(date).stream().map(FavoriteHistory::toDTO).collect(Collectors.toList());
             if (favoriteHistoryDTOS.size() != 0){
                 response.setFavoriteHistoryDTOS(favoriteHistoryDTOS);
-                return response;
-            } else {
-                return response;
             }
         }
+        return response;
     }
 
     @Override
